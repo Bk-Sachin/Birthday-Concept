@@ -1,323 +1,86 @@
-:root {
-    --neon-color: #ff00ff;
-    --neon-glow: 0 0 7px var(--neon-color),
-                 0 0 10px var(--neon-color),
-                 0 0 21px var(--neon-color),
-                 0 0 42px var(--neon-color);
-    --spark-colors: #ff0000, #00ff00, #0000ff, #ffff00, #00ffff;
-    --base-font-size: clamp(2rem, 5vw, 5rem);
-    --word-spacing: 0.2em;
-    --text-shadow: 0 0 2px #fff,
-                   0 0 4px #fff,
-                   0 0 8px var(--neon-color),
-                   0 0 12px var(--neon-color);
-  }
-  
-  * {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
   
   body {
-    min-height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-    padding: 1rem;
-    position: relative;
-    background-color: transparent;
-  }
-  
-  .video-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    overflow: hidden;
-  }
-  
-  .video-background video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
-  .container {
-    position: relative;
-    text-align: center;
-    perspective: 1000px;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    z-index: 1;
-  }
-  
-  .birthday-text {
-    font-size: var(--base-font-size);
-    font-weight: bold;
-    text-transform: uppercase;
-    position: relative;
-    z-index: 1;
-    transform-style: preserve-3d;
-    padding: 0 1rem;
-    word-wrap: break-word;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: var(--word-spacing);
-    mix-blend-mode: difference;
-  }
-  
-  .word {
-    display: inline-flex;
-    letter-spacing: 0.1em;
-  }
-  
-  .birthday-text span {
-    display: inline-block;
-    position: relative;
-    color: #fff;
-    text-shadow: var(--text-shadow);
-    animation: float 2s ease-out infinite, colorChange 8s linear infinite;
-    opacity: 0;
-    transform-style: preserve-3d;
-    padding: 0 0.02em;
-    background: linear-gradient(180deg,
-      rgba(255,255,255,0.95) 0%,
-      rgba(255,255,255,0.85) 45%,
-      rgba(255,255,255,0.95) 50%,
-      rgba(255,255,255,0.85) 55%,
-      rgba(255,255,255,0.95) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 2px rgba(255,255,255,0.8));
-    backdrop-filter: blur(1px);
-  }
-  
-  .birthday-text span.space {
-    width: 0.3em;
-  }
-  
-  .fireworks-container {
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100vh;
-    pointer-events: none;
-    z-index: 2;
+    background-color: black;
+    overflow: hidden;
+    position: relative;
   }
   
-  .fireworks {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-  }
-  
-  .firework {
-    position: absolute;
-    bottom: 0;
-    width: 4px;
-    height: 12px;
-    background: var(--neon-color, #ff3366);
-    border-radius: 2px;
-    filter: drop-shadow(0 0 6px var(--neon-color, #ff3366));
-    animation: launch 1.5s ease-out forwards;
-    transform-origin: center;
-    will-change: transform;
-  }
-  
-  /* Trail positioned below the firework */
-  .trail {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    background: linear-gradient(to top, var(--neon-color, #ff3366) 0%, rgba(255,255,255,0.5) 80%, transparent 100%);
-    animation: trail 1.5s ease-out forwards;
-    will-change: height, opacity;
-  }
-  
-  /* Explosion styling */
-  .explosion {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: var(--neon-color, #ff3366);
-    border-radius: 50%;
-    opacity: 0;
-    will-change: transform, opacity;
-    z-index: 10;
-  }
-  
-  .exploding {
-    animation: explosion 1.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
-    animation-delay: 0.1s;
-  }
-  
-  @keyframes launch {
-    0% {
-      transform: translateY(0) scale(1);
-      opacity: 1;
-    }
-    70% {
-      transform: translateY(-70vh) scale(1);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(-70vh) scale(0);
-      opacity: 0;
-    }
-  }
-  
-  @keyframes trail {
-    0% {
-      height: 0;
-      opacity: 0.8;
-    }
-    70% {
-      height: 30px;
-      opacity: 0.6;
-    }
-    100% {
-      height: 0;
-      opacity: 0;
-    }
-  }
-  
-  @keyframes explosion {
-    0% {
-      width: 4px;
-      height: 4px;
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-    35% {
-      width: 200px;
-      height: 200px;
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-    100% {
-      width: 400px;
-      height: 400px;
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(1.2);
-    }
-  }
-  
-  @keyframes particleSpread {
-    0% {
-      transform: rotate(var(--angle)) translateY(0) scale(1);
-      opacity: 0;
-    }
-    15% {
-      opacity: 1;
-      transform: rotate(var(--angle)) translateY(20px) scale(1.2);
-    }
-    50% {
-      opacity: 1;
-      transform: rotate(var(--angle)) translateY(var(--distance)) scale(1);
-    }
-    100% {
-      transform: rotate(var(--angle)) translateY(calc(var(--distance) * 1.5)) scale(0);
-      opacity: 0;
-    }
-  }
-  
-  .particle::after {
-    content: '';
-    position: absolute;
+  /* Background Fireworks */
+  #fireworksCanvas {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: inherit;
-    border-radius: 50%;
-    filter: blur(2px);
-    opacity: 0.7;
+    z-index: -3;
+    pointer-events: none;
   }
   
-  /* Media Queries */
+  /* Happy Birthday Animation */
+  #birthdayCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: transparent;
+    pointer-events: none;
+  }
   
-  /* Tablets */
-  @media screen and (max-width: 1024px) {
-    :root {
-      --base-font-size: clamp(1.8rem, 6vw, 4rem);
-    }
-    .firework {
-      width: 3px;
+  /* Dramatic Fireworks (Interactive Layer) */
+  #dramaticFireworks {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: auto;
+  }
+  
+  /* Dynamic Fireworks Elements */
+  .projectile,
+  .particule,
+  .sparkle {
+    position: absolute;
+    will-change: transform, opacity;
+  }
+  
+  .projectile {
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8),
+                0 0 30px rgba(255, 255, 255, 0.6),
+                0 0 40px rgba(255, 255, 255, 0.4);
+  }
+  
+  .particule {
+    font-size: 2rem;
+    font-family: "Cursive", serif;
+    font-weight: bold;
+    color: white;
+    transform: scale(0);
+    opacity: 0;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 600px) {
+    .projectile {
+      width: 10px;
       height: 10px;
     }
-    @keyframes explosion {
-      0% {
-        width: 3px;
-        height: 3px;
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-      }
-      35% {
-        width: 100px;
-        height: 100px;
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-      }
-      100% {
-        width: 200px;
-        height: 200px;
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(1.2);
-      }
-    }
-  }
-  
-  /* Phones */
-  @media screen and (max-width: 768px) {
-    :root {
-      --base-font-size: clamp(1.5rem, 8vw, 3rem);
-      --word-spacing: 0.1em;
-    }
-    .birthday-text {
-      gap: 0.3em;
-    }
-    .word {
-      letter-spacing: 0.1em;
-    }
-    .fireworks-container {
-      height: 100vh;
-      top: 0;
-    }
-    .birthday-text span {
-      padding: 0 0.01em;
-      text-shadow: var(--text-shadow), 0 0 30px rgba(0, 0, 0, 0.9);
-    }
-  }
-  
-  /* Reduce motion for accessibility */
-  @media (prefers-reduced-motion: reduce) {
-    .birthday-text span,
-    .firework,
-    .sparks::before {
-      animation-duration: 3s;
-    }
-    .firework {
-      transition: none;
+    .particule {
+      font-size: 1.5rem;
     }
   }
   
